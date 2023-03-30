@@ -3,9 +3,10 @@ import Link from "next/link";
 import React from "react";
 
 const ProductItem = ({ product }) => {
+    
   return (
     <div className="card ">
-      <Link href={`/product/${product.slug}`}>
+      <Link href={`/products/${product.id}`}>
         <img
           src={product.image}
           alt={product.name}
@@ -14,7 +15,7 @@ const ProductItem = ({ product }) => {
       </Link>
 
       <div className="flex flex-col items-center justify-center p-5">
-        <Link href={`/product/${product.slug}`}>
+        <Link href={`/products/ ${ product.id }`}>
           <h2 className="text-lg">{product.name}</h2>
         </Link>
         <p className="mb-2">{product.brand} </p>
