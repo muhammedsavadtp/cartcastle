@@ -1,6 +1,7 @@
 const data = {
   products: [
-    { id:1,
+    {
+      id: 1,
       name: "t-Shirt",
       slug: "fit—shirt",
       category: "Shirts",
@@ -13,7 +14,8 @@ const data = {
       countlnStock: 5,
       description: "A popular shirt • ",
     },
-    { id:2,
+    {
+      id: 2,
       name: " Short-Sleeve Top",
       slug: "free—shirt",
       category: "Shirts",
@@ -26,7 +28,8 @@ const data = {
       countlnStock: 25,
       description: "A popular shirt • ",
     },
-    { id:3,
+    {
+      id: 3,
       name: "Free Shirt",
       slug: "slim—shirt",
       category: "Shirts",
@@ -39,7 +42,8 @@ const data = {
       countlnStock: 10,
       description: "A popular shirt • ",
     },
-    { id:4,
+    {
+      id: 4,
       name: "nike pants",
       slug: "golf—pant",
       category: "pants",
@@ -52,12 +56,13 @@ const data = {
       countlnStock: 10,
       description: "A popular shirt • ",
     },
-    { id:5,
+    {
+      id: 5,
       name: "adidas ",
       slug: "slim—fit",
       category: "pants",
       image:
-        "https://assets.adidas.com/images/w_303,h_303,f_auto,q_auto,fl_lossy,c_fill,g_auto/696c63304a0a4fa8abbcaf5e00ece4a1_9366/adicolor-parley-track-pants.jpg",
+        "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/ed155d38c10940f79cc3add0011f3291_9366/Sportswear_Fleece_Pants_Brown_HP1894_21_model.jpg",
       price: 2799,
       brand: "adidas",
       rating: 4.7,
