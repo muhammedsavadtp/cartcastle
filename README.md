@@ -40,7 +40,9 @@ Description
 10. Handle Changing Cart Items
    1. add select box for quantity
    2. handle select box change
-
+11. Save Cart Items
+   1. install js—cookie package
+   2. save and ret reive cart items in cookies
 
 
 

@@ -3,6 +3,7 @@ import { Store } from "../../utils/Store";
 import Layout from "../../components/Layout";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
 function CartScreen() {
   const router = useRouter();
@@ -13,10 +14,10 @@ function CartScreen() {
   const removeItemHandler = (item) => {
     dispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
- const  updateCartHandle = (item ,qty) => {
-   const quantity = Number(qty);
-   dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity} });
-  }
+  const updateCartHandle = (item, qty) => {
+    const quantity = Number(qty);
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
+  };
 
   return (
     <Layout title={"shopping cart"}>
@@ -120,4 +121,4 @@ function CartScreen() {
   );
 }
 
-export default CartScreen;
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });
