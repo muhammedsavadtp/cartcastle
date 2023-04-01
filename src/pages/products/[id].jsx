@@ -10,7 +10,7 @@ function ProductScreen() {
   const { query } = useRouter();
   const { id } = query;
   const product = data.products.find((x) => x.id == id);
-
+  const router = useRouter();
   if (!product) {
     return <div> Product Not Found</div>;
   }
@@ -23,6 +23,7 @@ function ProductScreen() {
       return;
     }
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } })
+    router.push('/cart')
     
   }
   return (

@@ -20,6 +20,12 @@ function reducer(state, action) {
         : [...state.cart.cartItems, newItem]; // Fix typo in cartItems variable name
       return { ...state, cart: { cartItems: cartItems } }; // Add missing "s" to cartItems and return updated state
     }
+    case 'CART_REMOVE_ITEM': {
+      const cartItems = state.cart.cartItems.filter(
+        (item) => item.id !== action.payload.id
+      )
+      return {...state ,cart :{...state.cart,cartItems}}
+      }
     default:
       return state;
   }
