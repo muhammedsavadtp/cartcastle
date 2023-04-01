@@ -1,7 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
 import { Store } from "../utils/Store";
+import { useSession } from "next-auth/react";
+import "react-toastify/dist/ReactToastify.css";
 
 const Layout = ({ title, children }) => {
   //get current year function
@@ -10,13 +13,13 @@ const Layout = ({ title, children }) => {
     const year = now.getFullYear();
     return year;
   };
-  const { state} = useContext(Store);
+  const { state } = useContext(Store);
   const { cart } = state;
-  const [cartItemsCount, setCartItemsCount] = useState(0)
- 
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+  const { status, data: session } = useSession();
   useEffect(() => {
     setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
-  },[cart.cartItems])
+  }, [cart.cartItems]);
   return (
     <>
       <Head>
@@ -25,6 +28,7 @@ const Layout = ({ title, children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <ToastContainer position="bottom-center" limit={1} />
       <div className="flex min-h-screen flex-col justify-between">
         <header>
           <nav className="flex h-12 justify-between shadow-md items-center px-4">
@@ -40,9 +44,16 @@ const Layout = ({ title, children }) => {
                   </span>
                 )}
               </Link>
-              <Link className="p-2" href={"/login"}>
-                login
-              </Link>
+
+              {status === "loading" ? (
+                "loading"
+              ) : session?.user ? (
+                session.user.name
+              ) : (
+                <Link href={"/login"} className="p-2">
+                  login
+                </Link>
+              )}
             </div>
           </nav>
         </header>
