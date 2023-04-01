@@ -11,7 +11,7 @@ const data = {
       brand: "puma",
       rating: 5,
       numReviews: 20,
-      countlnStock: 5,
+      countInStock: 5,
       description: "A popular shirt • ",
     },
     {
@@ -25,7 +25,7 @@ const data = {
       brand: "Nike",
       rating: 3.5,
       numReviews: 7,
-      countlnStock: 25,
+      countInStock: 25,
       description: "A popular shirt • ",
     },
     {
@@ -39,7 +39,7 @@ const data = {
       brand: "adidas",
       rating: 4.7,
       numReviews: 9,
-      countlnStock: 10,
+      countInStock: 10,
       description: "A popular shirt • ",
     },
     {
@@ -53,7 +53,7 @@ const data = {
       brand: "nike",
       rating: 4.7,
       numReviews: 9,
-      countlnStock: 10,
+      countInStock: 10,
       description: "A popular shirt • ",
     },
     {
@@ -67,7 +67,7 @@ const data = {
       brand: "adidas",
       rating: 4.7,
       numReviews: 9,
-      countlnStock: 10,
+      countInStock: 10,
       description: "A popular shirt • ",
     },
   ],
