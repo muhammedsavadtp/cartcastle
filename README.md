@@ -9,15 +9,15 @@ Description
 3. Create Next App
 4. Publish to Github
 5. Create website layout
-   1. create layout comoponent 
+   1. create layout comoponent
    2. add header
    3. add main section
-   4. add footer 
+   4. add footer
    5. add tailwind classes
-6. List Products 
+6. List Products
    1. add data.js
    2. add images
-   3. render products 
+   3. render products
 7. Create product details
    1. create product page
    2. create 3 columns
@@ -38,43 +38,28 @@ Description
    3. list items in cart items
    4. redirect to cart screen after add to cart
 10. Handle Changing Cart Items
-   1. add select box for quantity
-   2. handle select box change
+    1. add select box for quantity
+    2. handle select box change
 11. Save Cart Items
-   1. install js—cookie package
-   2. save and ret reive cart items in cookies
+    1. install js—cookie package
+    2. save and ret reive cart items in cookies
 12. Create Login Form
-   1. install react hook form
-   2. create input boxes
-   3. add login button
+    1. install react hook form
+    2. create input boxes
+    3. add login button
 13. Connect To MongoDB
-   1. install mongoose
-   2. install mongodb or use mongodb atlas
-   3. save connection urt in .env file
-   4. create db utils file
-   5. create sample users
+    1. install mongoose
+    2. install mongodb or use mongodb atlas
+    3. save connection urt in .env file
+    4. create db utils file
+    5. create sample users
 14. create Login API
-   1. install next—auth
-   2. create nextauth.js
-   3. implement signin
-   4. use signin in login form
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    1. install next—auth
+    2. create nextauth.js
+    3. implement signin
+    4. use signin in login form
+15. Add User Menu
+    1. check user authentication
+    2. install headlessui
+    3. show user menu
+    
