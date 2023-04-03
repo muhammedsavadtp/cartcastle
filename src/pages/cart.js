@@ -19,6 +19,11 @@ function CartScreen() {
     dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
   };
 
+  //how to get current date function 
+
+
+
+
   return (
     <Layout title={"shopping cart"}>
       <h1 className="mb-4 text-xl ">sopping cart</h1>

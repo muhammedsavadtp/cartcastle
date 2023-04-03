@@ -1,9 +1,12 @@
 import { createContext, useReducer } from "react";
 import Cookies from "js-cookie";
+
 export const Store = createContext();
 
 const initialState = {
-  cart: Cookies.get('cart') ? JSON.parse(Cookies.get('cart')):{cartItems:[]},
+  cart: Cookies.get("cart")
+    ? JSON.parse(Cookies.get("cart"))
+    : { cartItems: [], shippingAddress: {} },
 };
 
 function reducer(state, action) {
@@ -11,32 +14,43 @@ function reducer(state, action) {
     case "CART_ADD_ITEM": {
       const newItem = action.payload;
       const existItem = state.cart.cartItems.find(
-        (item) => item.id === newItem.id // Use triple equals to compare values
+        (item) => item.id === newItem.id
       );
       const cartItems = existItem
-        ? state.cart.cartItems.map(
-            (item) => (item.id === existItem.id ? newItem : item) // Compare IDs instead of names
+        ? state.cart.cartItems.map((item) =>
+            item.id === existItem.id ? newItem : item
           )
-        : [...state.cart.cartItems, newItem]; // Fix typo in cartItems variable name
-      Cookies.set ('cart', JSON.stringify({ cartItems: cartItems }));
-      return { ...state, cart: { cartItems: cartItems } }; // Add missing "s" to cartItems and return updated state
+        : [...state.cart.cartItems, newItem];
+      Cookies.set("cart", JSON.stringify({ cartItems: cartItems }));
+      return { ...state, cart: { cartItems: cartItems } };
     }
-    case 'CART_REMOVE_ITEM': {
+    case "CART_REMOVE_ITEM": {
       const cartItems = state.cart.cartItems.filter(
         (item) => item.id !== action.payload.id
-      )
-      Cookies.set ('cart', JSON.stringify({ cartItems: cartItems }));
-      return {...state ,cart :{...state.cart,cartItems}}
+      );
+      Cookies.set("cart", JSON.stringify({ cartItems: cartItems }));
+      return { ...state, cart: { ...state.cart, cartItems } };
     }
-    case 'CART_RESET':
+    case "CART_RESET":
       return {
         ...state,
         cart: {
           cartItems: [],
           shippingAddress: { location: {} },
-          paymentMethod:'',
+          paymentMethod: "",
         },
-      }
+      };
+    case "SAVE_SHIPPING_ADDRESS":
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          shippingAddress: {
+            ...state.cart.shippingAddress,
+            ...action.payload,
+          },
+        },
+      };
     default:
       return state;
   }

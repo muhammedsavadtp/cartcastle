@@ -61,7 +61,7 @@ function ProductScreen() {
             </div>
             <div className="mb-2 flex justify-between">
               <div>Status</div>
-              <div>{product.countlnStock > 0 ? "in stock" : "Unavailable"}</div>
+              <div>{product.countInStock > 0 ? "in stock" : "Unavailable"}</div>
             </div>
             <button className="primary-button w-full " onClick={addToCartHandler}>Add to cart</button>
           </div>
