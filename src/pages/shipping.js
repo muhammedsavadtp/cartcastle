@@ -17,17 +17,19 @@ function ShippingScreen() {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
-  // const { shippingAddress } = cart;
+  const {shippingAddress } = cart;
 
-  // useEffect(() => {
-  //   setValue("fullName", shippingAddress.fullName);
-  //   setValue("address", shippingAddress.address);
-  //   setValue("city", shippingAddress.city);
-  //   setValue("postalCode", shippingAddress.postalCode);
-  //   setValue("country", shippingAddress.country);
+  useEffect(() => {
+    if (shippingAddress) {
+      setValue("fullName", shippingAddress.fullName);
+      setValue("address", shippingAddress.address);
+      setValue("city", shippingAddress.city);
+      setValue("postalCode", shippingAddress.postalCode);
+      setValue("country", shippingAddress.country);
 
-  //   console.log("this is shippingAddress ", shippingAddress);
-  // }, [  setValue, shippingAddress ]);
+      console.log("this isshippingAddress ", shippingAddress);
+    }
+  }, [  setValue,shippingAddress ]);
 
   const submitHandler = ({ fullName, address, city, postalCode, country }) => {
     dispatch({
@@ -39,7 +41,7 @@ function ShippingScreen() {
       "cart",
       JSON.stringify({
         ...cart,
-        ShippingAddress: {
+        shippingAddress: {  
           fullName,
           address,
           city,
@@ -80,7 +82,7 @@ function ShippingScreen() {
             type="text"
             className="w-full "
             id="address"
-            {...register("Address", {
+            {...register("address", {
               required: "Please enter address",
               minLength: { value: 3, message: "Adress is more than 2 chars" },
             })}
