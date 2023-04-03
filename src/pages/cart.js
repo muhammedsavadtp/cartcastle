@@ -4,6 +4,8 @@ import Layout from "../../components/Layout";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function CartScreen() {
   const router = useRouter();
@@ -14,15 +16,19 @@ function CartScreen() {
   const removeItemHandler = (item) => {
     dispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
-  const updateCartHandle = (item, qty) => {
+  const updateCartHandle = async (item, qty) => {
     const quantity = Number(qty);
+    const { data } = await axios.get(`/api/products/${item._id}`);
+
+    if (data.countInStock < quantity) {
+      return toast.error("sorry this product is out of stock");
+    }
     dispatch({ type: "CART_ADD_ITEM", payload: { ...item, quantity } });
+    toast.success("product added to the cart");
+
   };
 
-  //how to get current date function 
-
-
-
+  //how to get current date function
 
   return (
     <Layout title={"shopping cart"}>

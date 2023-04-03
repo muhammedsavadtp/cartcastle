@@ -1,31 +1,32 @@
 import React, { useContext } from "react";
 import Layout from "../../../components/Layout";
 import { useRouter } from "next/router";
-import data from "../../../utils/data";
 import Link from "next/link";
 import { Store } from "../../../utils/Store";
+import Product from "../../../models/Product";
+import db from "../../../utils/db";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-function ProductScreen() {
-  const { state, dispatch } = useContext(Store)
-  const { query } = useRouter();
-  const { id } = query;
-  const product = data.products.find((x) => x.id == id);
+function ProductScreen(props) {
+  const { product } = props;
+  const { state, dispatch } = useContext(Store);
+
   const router = useRouter();
   if (!product) {
-    return <div> Product Not Found</div>;
+    return <Layout title={"Product Not Found"}> Product Not Found</Layout>;
   }
-  const addToCartHandler = () => {
-    const existItem = state.cart.cartItems.find((x) => x.id == product.id)
-    const quantity =existItem ? existItem.quantity +1: 1
-    
-    if (product.countlnStock < quantity) {
-      alert('sorry this product is out of stock')
-      return;
+  const addToCartHandler = async () => {
+    const existItem = state.cart.cartItems.find((x) => x.id == product.id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+   const {data} = await axios.get(`/api/products/${product._id}`)
+    if (data.countlnStock < quantity) {
+      return toast.error("sorry this product is out of stock");
+
     }
-    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } })
-    router.push('/cart')
-    
-  }
+    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+    router.push("/cart");
+  };
   return (
     <Layout title={product.name}>
       <div className="py-2">
@@ -63,7 +64,12 @@ function ProductScreen() {
               <div>Status</div>
               <div>{product.countInStock > 0 ? "in stock" : "Unavailable"}</div>
             </div>
-            <button className="primary-button w-full " onClick={addToCartHandler}>Add to cart</button>
+            <button
+              className="primary-button w-full "
+              onClick={addToCartHandler}
+            >
+              Add to cart
+            </button>
           </div>
         </div>
       </div>
@@ -72,3 +78,17 @@ function ProductScreen() {
 }
 
 export default ProductScreen;
+
+export async function getServerSideProps(context) {
+  const { params } = context;
+  const { id } = params;
+
+  await db.connect();
+  const product = await Product.findOne({ id }).lean();
+  await db.disconnect();
+  return {
+    props: {
+      product: product ? db.convertDocToObj(product) : null,
+    },
+  };
+}
