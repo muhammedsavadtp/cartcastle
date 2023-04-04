@@ -26,7 +26,7 @@ function PaymentScreen() {
         paymentMethod: selectedPaymentMethod,
       })
     );
-    router.push("/palceorder");
+    router.push("/placeorder");
   };
   useEffect(() => {
     if (!shippingAddress) {
@@ -72,4 +72,6 @@ function PaymentScreen() {
   );
 }
 
+PaymentScreen.auth = true;
 export default PaymentScreen;
+
