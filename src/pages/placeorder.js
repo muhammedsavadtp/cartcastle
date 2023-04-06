@@ -32,14 +32,17 @@ function PlaceorderScreen() {
     try {
       setLoading(true);
       const { data } = await axios.post("/api/orders", {
-        orderItem: cartItems,
+        orderItems: cartItems,
         shippingAddress,
         paymentMethod,
-        totalPrice,
-        taxPrice,
-        shippingPrice,
         itemsPrice,
+        shippingPrice,
+        taxPrice,
+        totalPrice,
+    
       });
+          
+
       setLoading(false);
       dispatch({ type: "CART_CLEAR_ITEMS" });
       Cookies.set(

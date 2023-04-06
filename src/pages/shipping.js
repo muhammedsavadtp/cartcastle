@@ -17,7 +17,7 @@ function ShippingScreen() {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
-  const {shippingAddress } = cart;
+  const { shippingAddress } = cart;
 
   useEffect(() => {
     if (shippingAddress) {
@@ -26,10 +26,8 @@ function ShippingScreen() {
       setValue("city", shippingAddress.city);
       setValue("postalCode", shippingAddress.postalCode);
       setValue("country", shippingAddress.country);
-
-      console.log("this isshippingAddress ", shippingAddress);
     }
-  }, [  setValue,shippingAddress ]);
+  }, [setValue, shippingAddress]);
 
   const submitHandler = ({ fullName, address, city, postalCode, country }) => {
     dispatch({
@@ -41,7 +39,7 @@ function ShippingScreen() {
       "cart",
       JSON.stringify({
         ...cart,
-        shippingAddress: {  
+        shippingAddress: {
           fullName,
           address,
           city,
@@ -50,7 +48,7 @@ function ShippingScreen() {
         },
       })
     );
-    router.push("/payment");   
+    router.push("/payment");
   };
 
   return (
@@ -144,4 +142,3 @@ function ShippingScreen() {
 ShippingScreen.auth = true;
 
 export default ShippingScreen;
-
