@@ -23,11 +23,13 @@ function LoginScreen() {
     getValues,
     formState: { errors },
   } = useForm();
-  const submitHandler = async ({name, email, password }) => {
+  const submitHandler = async ({ name, email, password }) => {
     try {
-      await axios.post('/api/auth/signup', {
-        name,email,password
-      })
+      await axios.post("/api/auth/signup", {
+        name,
+        email,
+        password,
+      });
       const result = await signIn("credentials", {
         redirect: false,
         email,
@@ -56,7 +58,6 @@ function LoginScreen() {
             className="w-full"
             id="name"
             placeholder="Name"
-
             autoFocus
             {...register("name", {
               required: "please enter your name",
@@ -110,7 +111,7 @@ function LoginScreen() {
           <input
             {...register("confirmPassword", {
               required: "please enter password",
-              validate:(value) => value === getValues('password'),
+              validate: (value) => value === getValues("password"),
               minLength: {
                 value: 6,
                 message: "password is more than 5 chars",
@@ -121,18 +122,16 @@ function LoginScreen() {
             className="w-full"
             placeholder="Confirm password"
           />
-          {errors.confirmPassword && (
-            errors.confirmPassword.type === 'validate' && (
-              
+          {errors.confirmPassword &&
+            errors.confirmPassword.type === "validate" && (
               <div className="text-red-500">Password do not match </div>
-            )
-          )}
+            )}
         </div>
         <div className="mb-4">
           <button className="primary-button">Register</button>
         </div>
         <div className="mb-4">
-           have an accound ? &nbsp;
+          have an accound ? &nbsp;
           <Link href={"login"}>Login</Link>
         </div>
       </form>

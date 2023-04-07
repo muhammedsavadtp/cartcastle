@@ -39,9 +39,7 @@ function PlaceorderScreen() {
         shippingPrice,
         taxPrice,
         totalPrice,
-    
       });
-          
 
       setLoading(false);
       dispatch({ type: "CART_CLEAR_ITEMS" });

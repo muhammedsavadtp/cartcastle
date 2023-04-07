@@ -19,10 +19,9 @@ function ProductScreen(props) {
   const addToCartHandler = async () => {
     const existItem = state.cart.cartItems.find((x) => x.id == product.id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-   const {data} = await axios.get(`/api/products/${product._id}`)
+    const { data } = await axios.get(`/api/products/${product._id}`);
     if (data.countlnStock < quantity) {
       return toast.error("sorry this product is out of stock");
-
     }
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
     router.push("/cart");

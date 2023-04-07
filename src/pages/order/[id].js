@@ -18,18 +18,18 @@ function reducer(state, action) {
     case "FETCH_FAIL": {
       return { ...state, loading: false, error: action.payload };
     }
-    case 'PAY_REQUEST': {
+    case "PAY_REQUEST": {
       return { ...state, loadingPay: true };
     }
-    case 'PAY_SUCCESS': {
-      return { ...state, loadingPay: false, successPay: true};
+    case "PAY_SUCCESS": {
+      return { ...state, loadingPay: false, successPay: true };
     }
-    case 'PAY_FAIL': {
+    case "PAY_FAIL": {
       return { ...state, loadingPay: false, errorPay: action.payload };
-      }
-    case 'PAY_RESET': {
-      return { ...state, loadingPay: false,successPay:false,  errorPay: ''};
-      }
+    }
+    case "PAY_RESET": {
+      return { ...state, loadingPay: false, successPay: false, errorPay: "" };
+    }
     default:
       return state;
   }
@@ -41,14 +41,12 @@ function OrderScreen() {
   const { query } = useRouter();
   const orderId = query.id;
 
-  const [
-    { loading, error, order, successPay, loadingPay  },
-    dispatch,
-  ] = useReducer(reducer, {
-    loading: true,
-    order: {},
-    error: "",
-  });
+  const [{ loading, error, order, successPay, loadingPay }, dispatch] =
+    useReducer(reducer, {
+      loading: true,
+      order: {},
+      error: "",
+    });
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -63,7 +61,7 @@ function OrderScreen() {
     if (!order._id || successPay || (order._id && order._id !== orderId)) {
       fetchOrder();
       if (successPay) {
-        dispatch({ type: 'PAY_RESET' })
+        dispatch({ type: "PAY_RESET" });
       }
     } else {
       const loadPaypalScript = async () => {
@@ -95,38 +93,37 @@ function OrderScreen() {
     paymentMethod,
   } = order;
 
-  const createOrder = (data, actions) =>{
-    return actions.order.create({
-      purchase_units: [
-        {
-          amount: { value: totalPrice },
-        }
-      ]
-    }).then((orderID) => {
-      return orderID
-    })
-  }
+  const createOrder = (data, actions) => {
+    return actions.order
+      .create({
+        purchase_units: [
+          {
+            amount: { value: totalPrice },
+          },
+        ],
+      })
+      .then((orderID) => {
+        return orderID;
+      });
+  };
   function onApprove(data, action) {
-    return action.order.capture().then (async function (details) {
+    return action.order.capture().then(async function (details) {
       try {
-        dispatch({ type: 'PAY_REQUEST' });
+        dispatch({ type: "PAY_REQUEST" });
         const { data } = await axios.put(
-          `/api/orders/${order._id}/pay`, 
+          `/api/orders/${order._id}/pay`,
           details
-
-        )
-        dispatch({ type: 'PAY_SUCCESS', payload: data });
-
-    } catch (error) {
-       dispatch({ type: 'PAY_FAIL', payload: getError(error) })
-       toast.error(getError(error))
-      
-     }
-    })
+        );
+        dispatch({ type: "PAY_SUCCESS", payload: data });
+      } catch (error) {
+        dispatch({ type: "PAY_FAIL", payload: getError(error) });
+        toast.error(getError(error));
+      }
+    });
   }
   function onError(err) {
     toast.error(getError(err));
-}
+  }
 
   return (
     <Layout title={`Order ${orderId}`}>
@@ -242,8 +239,8 @@ function OrderScreen() {
                           onError={onError}
                         />
                       </div>
-                        )}
-                        {loadingPay && <div>Loading.....</div>}
+                    )}
+                    {loadingPay && <div>Loading.....</div>}
                   </li>
                 )}
               </ul>
