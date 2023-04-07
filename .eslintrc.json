@@ -1,7 +1,8 @@
 {
-  // "extends":["eslint:recommended","next/core-web-vitals"],
-  "presets": ["next/babel"],
-  "plugins": [],
-  "env":{"browser":"true","node":"true","es6":"true"}
-  
+  "extends": ["eslint:recommended", "next/core-web-vitals"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  }
 }

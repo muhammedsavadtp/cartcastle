@@ -35,7 +35,6 @@ function PaymentScreen() {
     setSelectedPaymentMethod(paymentMethod || "");
   }, [paymentMethod, router, shippingAddress.address]);
     
-    // console.log(selectedPaymentMethod);
 
   return (
     <Layout title={"payment Method"}>
